@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function Output({ output, selectedFields }) {
+export default function Output({ getInputValues, output, submit }) {
   return (
     <div>
       {output.map((item) => {
-        return <>{item.field}</>;
+        return (
+          <>
+            <input
+              onChange={(event) => getInputValues(event)}
+              name={item.id}
+              type={item.field.props.type}
+            />
+          </>
+        );
       })}
 
-      <button onClick={selectedFields}>Save</button>
+      <button onClick={submit}>Save</button>
     </div>
   );
 }
