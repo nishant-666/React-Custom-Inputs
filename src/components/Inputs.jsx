@@ -1,12 +1,12 @@
 import React from "react";
 
-export default function Inputs({ handleCheckboxChange }) {
+export default function Inputs({ handleCheckBoxes }) {
   return (
-    <div>
+    <div className="inputs">
       <div className="input-container">
         <div>
           <input
-            onChange={handleCheckboxChange}
+            onChange={handleCheckBoxes}
             type="checkbox"
             name="text-input"
             value="Text Input"
@@ -17,25 +17,23 @@ export default function Inputs({ handleCheckboxChange }) {
       <div className="input-container">
         <div>
           <input
-            onChange={handleCheckboxChange}
+            onChange={handleCheckBoxes}
             type="checkbox"
             name="number-input"
             value="Number Input"
           />
           <label for="number-input"> Number Input</label>
         </div>
-
-        <div></div>
       </div>
       <div className="input-container">
         <div>
           <input
-            onChange={handleCheckboxChange}
+            onChange={handleCheckBoxes}
             type="checkbox"
-            name="file-input"
-            value="File Input"
+            name="color-input"
+            value="Color Input"
           />
-          <label for="file-input"> File Input</label>
+          <label for="color-input"> Color Input</label>
         </div>
       </div>
     </div>

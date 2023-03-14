@@ -1,61 +1,63 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import Inputs from "./components/Inputs";
-import { useState, useEffect } from "react";
 import Output from "./components/Output";
 
 function App() {
-  const [inputs, setInputs] = useState([]);
-  const [output, setOutput] = useState([]);
-  const [formFields, setFormFields] = useState({});
-  const fields = [
+  const [inputValue, setInputValue] = useState([]);
+  const [outputState, setOutputState] = useState({});
+  const [outputValues, setOutputValues] = useState([
     {
-      name: "Text Input",
-      id: "text",
-      field: <input name="text" type="text" placeholder="Text Input" />,
+      name: "text-input",
+      label: "Text Input",
+      field: <input type={"text"} name="text-input" />,
     },
     {
-      id: "number",
-      name: "Number Input",
-      field: <input type="number" placeholder="Number Input" />,
+      name: "number-input",
+      label: "Number Input",
+      field: <input type={"number"} name="number-input" />,
     },
     {
-      id: "file",
-      name: "File Input",
-      field: <input type="file" placeholder="File Input" />,
+      name: "color-input",
+      label: "Color Input",
+      field: <input type={"color"} name="color-input" />,
     },
-  ];
+  ]);
+  const [fieldValues, setFieldValues] = useState([]);
+  const handleCheckBoxes = (event) => {
+    let { value, checked } = event.target;
 
-  const handleCheckboxChange = (event) => {
-    if (event.target.checked) {
-      setInputs([...inputs, event.target.value]);
+    if (checked) {
+      setInputValue([...inputValue, value]);
     } else {
-      setInputs(inputs.filter((item) => item !== event.target.value));
+      setInputValue(inputValue.filter((input) => input !== value));
     }
   };
 
-  const getInputValues = (event) => {
-    setFormFields({ ...formFields, [event.target.name]: event.target.value });
+  const getOutputValues = (event) => {
+    let { name, value } = event.target;
+    setOutputState({ ...outputState, [name]: value });
   };
 
-  const submit = () => {
-    console.log(formFields);
+  const sendValues = () => {
+    console.log(outputState);
   };
-
   useEffect(() => {
-    setOutput([...fields.filter((field) => inputs.includes(field.name))]);
-  }, [inputs]);
+    setFieldValues(
+      outputValues.filter((output) => inputValue.includes(output.label))
+    );
+  }, [inputValue]);
 
   return (
     <div className="App">
       <div className="left-bar">
-        <Inputs handleCheckboxChange={handleCheckboxChange} />
+        <Inputs handleCheckBoxes={handleCheckBoxes} />
       </div>
       <div className="right-bar">
         <Output
-          formFields={formFields}
-          output={output}
-          getInputValues={getInputValues}
-          submit={submit}
+          sendValues={sendValues}
+          outputValues={fieldValues}
+          getOutputValues={getOutputValues}
         />
       </div>
     </div>

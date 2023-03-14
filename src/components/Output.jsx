@@ -1,21 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function Output({ getInputValues, output, submit }) {
+export default function Output({ outputValues, getOutputValues, sendValues }) {
   return (
-    <div>
-      {output.map((item) => {
+    <div className="inputs output-container">
+      {outputValues.map((output) => {
         return (
-          <>
+          <div className="output-inner">
+            <label>{output.label}</label>
+
             <input
-              onChange={(event) => getInputValues(event)}
-              name={item.id}
-              type={item.field.props.type}
+              onChange={getOutputValues}
+              type={output.field.props.type}
+              name={output.field.props.name}
             />
-          </>
+          </div>
         );
       })}
 
-      <button onClick={submit}>Save</button>
+      <button onClick={sendValues}>Send!</button>
     </div>
   );
 }
